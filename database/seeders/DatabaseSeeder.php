@@ -25,10 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             KategoriSeeder::class,
             LayananSeeder::class,
-            ProfilTokoSeeder::class,
-            FasilitasSeeder::class,
             KaryawanSeeder::class,
-            GaleriSeeder::class,
         ]);
     }
 }

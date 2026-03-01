@@ -8,13 +8,6 @@
 
             <title>{{ config('app.name', 'Laravel') }}</title>
 
-    @php
-        $profilTokoGlobal = \App\Models\ProfilToko::first();
-    @endphp
-    @if($profilTokoGlobal && $profilTokoGlobal->favicon)
-        <link rel="icon" href="{{ asset('storage/' . $profilTokoGlobal->favicon) }}" type="image/x-icon">
-    @endif
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
