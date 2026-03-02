@@ -30,7 +30,7 @@
 
 
                     <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200" id="default-table" data-datatable>
+                        <table class="min-w-full divide-y divide-gray-200" data-datatable>
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th
@@ -46,7 +46,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($kategoris as $kategori)
-                                    <tr>
+                                    <tr class="hover:bg-gray-50 cursor-pointer">
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $kategori->nama }}</td>
                                         <td class="px-6 py-4">{{ $kategori->deskripsi }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">

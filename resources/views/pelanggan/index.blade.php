@@ -39,7 +39,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach($pelanggan as $p)
-                                    <tr>
+                                    <tr class="hover:bg-gray-50 cursor-pointer">
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $p->nama }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $p->no_hp }}</td>
                                         <td class="px-6 py-4">{{ $p->alamat ?? '-' }}</td>

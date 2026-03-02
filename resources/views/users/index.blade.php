@@ -45,7 +45,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($users as $user)
-                                    <tr>
+                                    <tr class="hover:bg-gray-50 cursor-pointer">
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $user->name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">

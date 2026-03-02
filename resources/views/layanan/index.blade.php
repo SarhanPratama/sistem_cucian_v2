@@ -51,7 +51,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($layanan as $l)
-                                    <tr>
+                                    <tr class="hover:bg-gray-50 cursor-pointer">
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $l->nama }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">Rp
                                             {{ number_format($l->harga, 0, ',', '.') }}</td>
