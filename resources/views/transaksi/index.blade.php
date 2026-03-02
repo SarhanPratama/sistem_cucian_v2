@@ -33,7 +33,6 @@
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No Antrian</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pelanggan</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Plat Nomor</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Layanan</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estimasi Tiba</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -46,7 +45,6 @@
                                 <tr class="hover:bg-gray-50 cursor-pointer">
                                     <td class="px-6 py-4 whitespace-nowrap font-bold">{{ $t->nomor_antrian }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $t->pelanggan->nama }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap">{{ $t->plat_nomor }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $t->layanan->nama }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @php
