@@ -10,6 +10,12 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
+                    @if(session('error'))
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <span class="block sm:inline">{{ session('error') }}</span>
+                        </div>
+                    @endif
+
                     <!-- Informasi Transaksi -->
                     <div class="mb-6 bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-sm">
                         <div class="flex justify-between items-center border-b pb-4 mb-4">
@@ -70,10 +76,15 @@
                                 {{ __('Status Pengerjaan') }} <span class="text-red-500">*</span>
                             </x-input-label>
                             <select name="status" id="status" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full" required>
-                                <option value="menunggu" {{ old('status', $transaksi->status) == 'menunggu' ? 'selected' : '' }}>Menunggu</option>
-                                <option value="diproses" {{ old('status', $transaksi->status) == 'diproses' ? 'selected' : '' }}>Diproses</option>
-                                <option value="selesai" {{ old('status', $transaksi->status) == 'selesai' ? 'selected' : '' }}>Selesai</option>
-                                <option value="dibatalkan" {{ old('status', $transaksi->status) == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
+                                @if ($transaksi->status === 'menunggu')
+                                    <option value="menunggu" {{ old('status', $transaksi->status) == 'menunggu' ? 'selected' : '' }}>Menunggu</option>
+                                    <option value="diproses" {{ old('status', $transaksi->status) == 'diproses' ? 'selected' : '' }}>Diproses</option>
+                                    <option value="selesai" {{ old('status', $transaksi->status) == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                                    <option value="dibatalkan" {{ old('status', $transaksi->status) == 'dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
+                                @elseif ($transaksi->status === 'diproses')
+                                    <option value="diproses" {{ old('status', $transaksi->status) == 'diproses' ? 'selected' : '' }}>Diproses</option>
+                                    <option value="selesai" {{ old('status', $transaksi->status) == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                                @endif
                             </select>
                             <x-input-error :messages="$errors->get('status')" class="mt-2" />
                         </div>

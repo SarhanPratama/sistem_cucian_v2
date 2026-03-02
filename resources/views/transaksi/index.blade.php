@@ -27,6 +27,12 @@
                         </div>
                     @endif
 
+                    @if(session('error'))
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <span class="block sm:inline">{{ session('error') }}</span>
+                        </div>
+                    @endif
+
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200" data-datatable>
                             <thead class="bg-gray-50">
@@ -74,7 +80,10 @@
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $t->karyawan ? $t->karyawan->nama : '-' }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <a href="{{ route('transaksi.show', $t->id) }}" class="text-blue-600 hover:text-blue-900 mr-3">Detail</a>
-                                        <a href="{{ route('transaksi.edit', $t->id) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Update Status</a>
+
+                                        @if(in_array($t->status, ['menunggu', 'diproses']))
+                                            <a href="{{ route('transaksi.edit', $t->id) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Update Status</a>
+                                        @endif
 
                                         @if($t->status === 'menunggu')
                                             <form action="{{ route('transaksi.update', $t->id) }}" method="POST" class="inline-block mr-3">
@@ -83,13 +92,13 @@
                                                 <input type="hidden" name="status" value="dibatalkan">
                                                 <button type="submit" class="text-yellow-600 hover:text-yellow-900" onclick="return confirm('Batalkan transaksi ini karena pelanggan terlambat?')">Batal</button>
                                             </form>
-                                        @endif
 
-                                        <form action="{{ route('transaksi.destroy', $t->id) }}" method="POST" class="inline-block">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Yakin ingin menghapus transaksi ini?')">Hapus</button>
-                                        </form>
+                                            <form action="{{ route('transaksi.destroy', $t->id) }}" method="POST" class="inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Hapus transaksi ini? Gunakan hanya untuk koreksi salah input.')">Hapus</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

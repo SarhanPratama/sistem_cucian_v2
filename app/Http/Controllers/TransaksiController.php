@@ -54,6 +54,11 @@ class TransaksiController extends Controller
 
     public function edit(Transaksi $transaksi)
     {
+        if (in_array($transaksi->status, ['selesai', 'dibatalkan'])) {
+            return redirect()->route('transaksi.index')
+                ->with('error', 'Transaksi dengan status selesai atau dibatalkan tidak bisa diubah lagi.');
+        }
+
         $transaksi->load('pelanggan', 'layanan.kategori');
         $karyawan = Karyawan::where('status', 'aktif')->get();
         return view('transaksi.edit', compact('transaksi', 'karyawan'));
@@ -72,6 +77,17 @@ class TransaksiController extends Controller
             'karyawan_id' => 'nullable|exists:karyawan,id',
             'metode_pembayaran' => 'nullable|in:tunai,qris,transfer',
         ]);
+
+        if (in_array($transaksi->status, ['selesai', 'dibatalkan'])) {
+            return redirect()->route('transaksi.index')
+                ->with('error', 'Status transaksi ini sudah final dan tidak bisa diubah.');
+        }
+
+        if ($request->status === 'dibatalkan' && $transaksi->status !== 'menunggu') {
+            return back()->withErrors([
+                'status' => 'Transaksi hanya bisa dibatalkan saat masih berstatus menunggu.'
+            ])->withInput();
+        }
 
         // Jika status diproses atau selesai, karyawan harus diisi
         if (in_array($request->status, ['diproses', 'selesai']) && empty($request->karyawan_id)) {
@@ -99,6 +115,11 @@ class TransaksiController extends Controller
 
     public function destroy(Transaksi $transaksi)
     {
+        if ($transaksi->status !== 'menunggu') {
+            return redirect()->route('transaksi.index')
+                ->with('error', 'Hanya transaksi berstatus menunggu yang boleh dihapus (untuk koreksi input).');
+        }
+
         $transaksi->delete();
         return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dihapus.');
     }
