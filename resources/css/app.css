@@ -1,3 +1,132 @@
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.datatable-search > input {
+	min-width: 240px;
+	border-radius: 999px;
+	border: 1px solid rgba(107, 114, 128, 0.2);
+	padding: 0.4rem 1.5rem;
+	background-color: #fff;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+	font-weight: 500;
+}
+
+.datatable-search > input:focus {
+	outline: none;
+	border-color: #4f46e5;
+	box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+.datatable-pagination-list {
+	display: flex;
+	gap: 0.35rem;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	padding: 0;
+	margin: 0;
+
+}
+
+.datatable-pagination-list-item {
+	list-style: none;
+}
+
+.datatable-pagination-list-item button {
+	border-radius: 999px;
+	padding: 0.35rem 0.9rem;
+	border: 1px solid transparent;
+	background: rgba(79, 70, 229, 0.08);
+	color: #3730a3;
+	font-weight: 600;
+	transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.datatable-pagination-list-item button:hover:not(.datatable-active) {
+	background: rgba(79, 70, 229, 0.18);
+}
+
+.datatable-pagination-list-item button.datatable-active {
+	background: #4f46e5;
+	color: #fff;
+	box-shadow: 0 10px 20px rgba(79, 70, 229, 0.25);
+	transform: translateY(-1px);
+	border-color: transparent;
+}
+
+.datatable-bottom {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.datatable-info {
+	color: #4b5563;
+	font-size: 0.95rem;
+}
+
+.datatable-dropdown {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.datatable-dropdown label {
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: #6b7280;
+}
+
+.datatable-dropdown select {
+    text-align: center;
+	border-radius: 999px;
+	padding: 0.4rem 1.5rem;
+	border: 1px solid rgba(107, 114, 128, 0.2);
+	background: #fff;
+	min-width: 90px;
+	font-weight: 600;
+	color: #3730a3;
+	/* box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08); */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.datatable-dropdown select:focus {
+	outline: none;
+	border-color: #4f46e5;
+	box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+@media (max-width: 640px) {
+	.datatable-top {
+		flex-direction: column;
+		align-items: stretch;
+		text-align: center;
+	}
+
+	.datatable-search,
+	.datatable-dropdown {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.datatable-dropdown select {
+        text-align: center;
+		max-width: 220px;
+		width: 100%;
+		margin: 0 auto;
+	}
+
+	.datatable-search > input {
+		margin: 0 auto;
+	}
+}

@@ -28,7 +28,7 @@
                     @endif
 
                     <div class="overflow-x-auto">
-                        <table id="karyawan-table" class="min-w-full divide-y divide-gray-200">
+                          <table id="karyawan-table" data-datatable="true" class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto</th>

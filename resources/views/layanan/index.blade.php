@@ -29,7 +29,7 @@
                     @endif
 
                     <div class="overflow-x-auto">
-                        <table id="layanan-table" class="min-w-full divide-y divide-gray-200">
+                          <table id="layanan-table" data-datatable="true" class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th
