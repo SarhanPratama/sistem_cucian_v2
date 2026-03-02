@@ -44,15 +44,16 @@
                                 class="w-8 h-8"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-clipboard-list">
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-list-details">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M13 5h8" />
+                                <path d="M13 9h5" />
+                                <path d="M13 15h8" />
+                                <path d="M13 19h5" />
                                 <path
-                                    d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
-                                <path d="M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2" />
-                                <path d="M9 12l.01 0" />
-                                <path d="M13 12l2 0" />
-                                <path d="M9 16l.01 0" />
-                                <path d="M13 16l2 0" />
+                                    d="M3 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
+                                <path
+                                    d="M3 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
                             </svg>
                         </div>
                         <div>
@@ -106,6 +107,49 @@
                             </p>
                             <p class="text-2xl font-bold">
                                 {{ $totalKategori }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total transaksi hari ini -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 flex items-center">
+                        <div class="p-3 rounded-full bg-green-100 text-green-500 mr-4">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                                </path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 font-semibold">
+                                Transaksi Hari Ini
+                            </p>
+                            <p class="text-2xl font-bold">
+                                {{ $transaksiHariIni }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Antrian Menunggu -->
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 flex items-center">
+                        <div class="p-3 rounded-full bg-yellow-100 text-yellow-500 mr-4">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 font-semibold">
+                                Antrian Menunggu
+                            </p>
+                            <p class="text-2xl font-bold">
+                                {{ $transaksiMenunggu }}
                             </p>
                         </div>
                     </div>

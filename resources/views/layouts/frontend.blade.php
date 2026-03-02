@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
-@php
+{{-- @php
     $profilTokoGlobal = \App\Models\ProfilToko::first();
-@endphp
+@endphp --}}
 
 <head>
     <meta charset="UTF-8" />
@@ -128,9 +128,9 @@
     <header class="border-b border-purple-600 bg-white fixed w-full z-50 top-0 left-0 shadow-sm">
         <div class="mx-auto flex h-16 max-w-7xl justify-between items-center gap-8 px-4 sm:px-6 lg:px-8">
             <a href="{{ url('/') }}" title="" class="flex text-xl">
-                <span class="font-bold text-gray-700 dark:text-gray-200">
+                {{-- <span class="font-bold text-gray-700 dark:text-gray-200">
                     {{ $profilTokoGlobal->nama_toko ?? 'AutoClean' }}
-                </span>
+                </span> --}}
             </a>
 
             <div class="flex items-center justify-end md:justify-between">
@@ -203,7 +203,7 @@
     </header>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu"
+    {{-- <div id="mobile-menu"
         class="hidden md:hidden bg-white border-b border-gray-200 fixed w-full z-40 top-16 left-0 shadow-lg transition-all duration-300 ease-in-out max-h-[calc(100vh-4rem)] overflow-y-auto">
         <nav aria-label="Global" class="px-4 pt-2 pb-6 space-y-1">
             <a class="mobile-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-purple-600 hover:bg-purple-50"
@@ -230,7 +230,7 @@
                 </a>
             </div>
         </nav>
-    </div>
+    </div> --}}
 
     <!-- Main Content -->
     <main class="flex-grow pt-16">
@@ -238,7 +238,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-purple-600 w-full text-white py-12 px-4">
+    {{-- <footer class="bg-purple-600 w-full text-white py-12 px-4">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div class="md:mb-0 md:col-span-2">
@@ -334,9 +334,9 @@
                 </p>
             </div>
         </div>
-    </footer>
+    </footer> --}}
 
-    <script>
+    {{-- <script>
         // Status Toko Real-time
         function updateStoreStatus() {
             const now = new Date();
@@ -476,7 +476,7 @@
                 });
             });
         }
-    </script>
+    </script> --}}
     @stack('scripts')
 </body>
 
