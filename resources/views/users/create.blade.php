@@ -1,8 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Tambah User') }}
-        </h2>
+        <div class="flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
+            <div>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Tambah User') }}
+                </h2>
+                <p class="text-sm text-gray-500">
+                    {{ __('Tambahkan pengguna yang diberi akses untuk memanajemen dashboard ini.') }}
+                </p>
+            </div>
+            <a href="{{ route('users.index') }}">
+                <x-secondary-button>
+                    {{ __('Kembali ke daftar') }}
+                </x-secondary-button>
+            </a>
+        </div>
     </x-slot>
 
     <div class="py-12">

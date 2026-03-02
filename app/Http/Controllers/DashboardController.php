@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Pelanggan;
 use App\Models\Transaksi;
 use App\Models\Pembayaran;
-use Illuminate\Http\Request;
+use App\Models\Layanan;
+use App\Models\Karyawan;
+use App\Models\Kategori;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -13,6 +15,9 @@ class DashboardController extends Controller
     public function index()
     {
         $totalPelanggan = Pelanggan::count();
+        $totalLayanan = Layanan::count();
+        $totalKaryawan = Karyawan::count();
+        $totalKategori = Kategori::count();
         $transaksiHariIni = Transaksi::whereDate('created_at', Carbon::today())->count();
         $transaksiMenunggu = Transaksi::where('status', 'menunggu')->count();
         $transaksiDiproses = Transaksi::where('status', 'diproses')->count();
@@ -32,7 +37,10 @@ class DashboardController extends Controller
             'transaksiMenunggu',
             'transaksiDiproses',
             'pendapatanHariIni',
-            'transaksiTerbaru'
+            'transaksiTerbaru',
+            'totalLayanan',
+            'totalKaryawan',
+            'totalKategori'
         ));
     }
 }
