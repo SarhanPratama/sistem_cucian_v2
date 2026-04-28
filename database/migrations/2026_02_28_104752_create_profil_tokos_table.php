@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('profil_toko', function (Blueprint $table) {
             $table->id();
             $table->string('nama_toko')->default('AutoClean');
-            $table->string('logo');
-            $table->string('favicon');
+            $table->string('logo')->nullable();
+            $table->string('favicon')->nullable();
             $table->string('hero_title')->nullable();
             $table->text('hero_subtitle')->nullable();
             $table->text('tentang_kami')->nullable();
