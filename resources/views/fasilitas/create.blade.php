@@ -75,4 +75,4 @@
     </script>
     @endpush
 </x-app-layout>
-@endsection
+

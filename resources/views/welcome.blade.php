@@ -145,9 +145,9 @@
                             </h2>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto justify-items-center">
                             @foreach ($layanan as $index => $l)
-                                <div class="bg-white rounded-2xl p-8 shadow-lg card-hover scale-in border-t-4 border-purple-500 flex flex-col"
+                                <div class="w-full max-w-md bg-white rounded-2xl p-8 shadow-lg card-hover scale-in border-t-4 border-purple-500 flex flex-col"
                                     style="transition-delay: {{ $index * 0.1 }}s">
                                     <div class="flex-grow">
                                         <div class="flex justify-between items-start mb-4">
@@ -183,7 +183,7 @@
                             </h2>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-5xl mx-auto justify-items-center">
                             @php
                                 $colors = [
                                     ['bg' => 'bg-purple-100', 'text' => 'text-purple-600'],
@@ -201,7 +201,7 @@
                                 @php
                                     $color = $colors[$index % count($colors)];
                                 @endphp
-                                <div class="bg-white rounded-2xl p-8 shadow-lg card-hover text-center scale-in"
+                                <div class="w-full max-w-sm bg-white rounded-2xl p-8 shadow-lg card-hover text-center scale-in"
                                     style="transition-delay: {{ $index * 0.1 }}s">
                                     <div
                                         class="{{ $color['bg'] }} w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -233,9 +233,9 @@
                             </h2>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto justify-items-center">
                             @forelse($galeri as $index => $item)
-                                <div class="bg-gray-50 rounded-2xl overflow-hidden shadow-lg card-hover fade-in"
+                                <div class="w-full max-w-2xl bg-gray-50 rounded-2xl overflow-hidden shadow-lg card-hover fade-in"
                                     style="transition-delay: {{ $index * 0.1 }}s">
                                     <div class="grid grid-cols-2">
                                         <div class="relative">
@@ -283,9 +283,9 @@
                             </h2>
                         </div>
 
-                        <div class="grid md:grid-cols-4 gap-8">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto justify-items-center">
                             @foreach ($karyawan as $index => $k)
-                                <div class="bg-white rounded-2xl overflow-hidden shadow-lg card-hover scale-in"
+                                <div class="w-full max-w-xs bg-white rounded-2xl overflow-hidden shadow-lg card-hover scale-in"
                                     style="transition-delay: {{ $index * 0.1 }}s">
                                     @if ($k->foto)
                                         <img src="{{ asset('storage/' . $k->foto) }}" alt="{{ $k->nama }}"
