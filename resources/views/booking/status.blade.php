@@ -1,118 +1,115 @@
 @extends('layouts.frontend')
 
-@section('title', 'Cek Status Antrean - AutoClean')
+@section('title', 'Antrian Aktif - AutoClean')
 
 @section('content')
-    <!-- Status Section -->
-    <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div class="bg-purple-600 px-6 py-8 text-center text-white">
-                <h2 class="text-3xl font-bold mb-2">Cek Status Antrean</h2>
-                <p>Masukkan Nomor Antrean atau Plat Nomor Anda.</p>
-            </div>
+    @php
+        $menunggu = $antrianAktif->where('status', 'menunggu')->count();
+        $diproses = $antrianAktif->where('status', 'diproses')->count();
+    @endphp
 
-            <div class="p-4">
-                <form action="{{ route('booking.status') }}" method="GET" class="space-y-6 mb-8">
+    <main class="flex-grow py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto space-y-8">
+            <section class="text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-semibold mb-4">
+                    <span class="w-2 h-2 rounded-full bg-purple-600"></span>
+                    Antrian yang sedang berjalan
+                </div>
+                <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mb-3">Cek Status Antrian</h1>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Berikut daftar semua kendaraan yang masih menunggu atau sedang diproses.
+                </p>
+            </section>
+
+            <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 text-center">
+                    <p class="text-sm text-gray-500 mb-1">Menunggu</p>
+                    <p class="text-3xl font-bold text-yellow-600">{{ $menunggu }}</p>
+                </div>
+                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 text-center">
+                    <p class="text-sm text-gray-500 mb-1">Diproses</p>
+                    <p class="text-3xl font-bold text-blue-600">{{ $diproses }}</p>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+                <div class="px-6 py-5 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                     <div>
-                        <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Nomor Antrean / Plat Nomor</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-search text-gray-400"></i>
+                        <h2 class="text-xl font-bold text-gray-900">Daftar Antrian Aktif</h2>
+                        <p class="text-sm text-gray-500">Urutan dibuat berdasarkan status dan waktu pendaftaran.</p>
+                    </div>
+                    <a href="{{ route('booking.create') }}" class="inline-flex items-center justify-center rounded-full bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-purple-700 transition">
+                        Booking Baru
+                    </a>
+                </div>
+
+                <div class="p-6">
+                    @forelse($antrianAktif as $index => $transaksi)
+                        @php
+                            $statusColor = match($transaksi->status) {
+                                'menunggu' => 'bg-yellow-100 text-yellow-800',
+                                'diproses' => 'bg-blue-100 text-blue-800',
+                                default => 'bg-gray-100 text-gray-800',
+                            };
+                        @endphp
+
+                        <div class="mb-4 last:mb-0 rounded-2xl border border-gray-100 bg-gray-50 hover:bg-white hover:shadow-md transition p-5">
+                            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center font-bold shadow">
+                                        {{ $index + 1 }}
+                                    </div>
+                                    <div>
+                                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                                            <h3 class="text-lg font-bold text-gray-900">{{ $transaksi->nomor_antrian }}</h3>
+                                            <span class="px-3 py-1 text-xs font-semibold rounded-full {{ $statusColor }} uppercase">
+                                                {{ $transaksi->status }}
+                                            </span>
+                                        </div>
+                                        <p class="text-sm text-gray-600">
+                                            <span class="font-semibold text-gray-800">{{ $transaksi->pelanggan->nama }}</span>
+                                            <span class="mx-2 text-gray-300">|</span>
+                                            {{ $transaksi->plat_nomor }}
+                                        </p>
+                                        <p class="text-sm text-gray-500 mt-1">
+                                            {{ $transaksi->layanan->nama }}
+                                            @if($transaksi->layanan->kategori)
+                                                · {{ $transaksi->layanan->kategori->nama }}
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm lg:text-right">
+                                    <div>
+                                        <p class="text-gray-500">Waktu Pesan</p>
+                                        <p class="font-semibold text-gray-900">{{ $transaksi->created_at->format('d M Y H:i') }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-500">Estimasi Tiba</p>
+                                        <p class="font-semibold text-gray-900">{{ $transaksi->estimasi_tiba ? $transaksi->estimasi_tiba->format('d M Y H:i') : '-' }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-500">Harga</p>
+                                        <p class="font-semibold text-emerald-600">Rp {{ number_format($transaksi->layanan->harga, 0, ',', '.') }}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <input type="text" name="search" id="search" value="{{ request('search') }}" required
-                                class="pl-10 block w-full border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 sm:text-sm border p-3 uppercase"
-                                placeholder="Contoh: ANT-001 atau BM 1234 AB">
                         </div>
-                    </div>
-
-                    <button type="submit"
-                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-sm text-sm font-medium text-white bg-purple-500 hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
-                        Cari Antrean
-                    </button>
-                </form>
-
-                @if(request()->has('search'))
-                    <div class="border-t border-gray-200 pt-6">
-                        @if($transaksi)
-                            <div class="bg-blue-50 rounded-xl p-6 border border-blue-100">
-                                <div class="flex items-center justify-between mb-4">
-                                    <h3 class="text-lg font-bold text-gray-900">{{ $transaksi->nomor_antrian }}</h3>
-                                    @php
-                                        $statusColors = [
-                                            'menunggu' => 'bg-yellow-100 text-yellow-800',
-                                            'diproses' => 'bg-blue-100 text-blue-800',
-                                            'selesai' => 'bg-green-100 text-green-800',
-                                            'dibatalkan' => 'bg-red-100 text-red-800',
-                                        ];
-                                        $statusColor = $statusColors[$transaksi->status] ?? 'bg-gray-100 text-gray-800';
-                                    @endphp
-                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $statusColor }} uppercase">
-                                        {{ $transaksi->status }}
-                                    </span>
-                                </div>
-
-                                <dl class="space-y-4 text-sm">
-                                    <div class="flex flex-col sm:flex-row sm:justify-between border-b border-gray-100 pb-2 sm:border-0 sm:pb-0">
-                                        <dt class="text-gray-500 mb-1 sm:mb-0">Nama</dt>
-                                        <dd class="font-medium text-gray-900 sm:text-right">{{ $transaksi->pelanggan->nama }}</dd>
-                                    </div>
-                                    <div class="flex flex-col sm:flex-row sm:justify-between border-b border-gray-100 pb-2 sm:border-0 sm:pb-0">
-                                        <dt class="text-gray-500 mb-1 sm:mb-0">Plat Nomor</dt>
-                                        <dd class="font-medium text-gray-900 uppercase sm:text-right">{{ $transaksi->plat_nomor }}</dd>
-                                    </div>
-                                    <div class="flex flex-col sm:flex-row sm:justify-between border-b border-gray-100 pb-2 sm:border-0 sm:pb-0">
-                                        <dt class="text-gray-500 mb-1 sm:mb-0">Kategori</dt>
-                                        <dd class="font-medium text-gray-900 sm:text-right">{{ $transaksi->layanan->kategori->nama ?? '-' }}</dd>
-                                    </div>
-                                    <div class="flex flex-col sm:flex-row sm:justify-between border-b border-gray-100 pb-2 sm:border-0 sm:pb-0">
-                                        <dt class="text-gray-500 mb-1 sm:mb-0">Layanan</dt>
-                                        <dd class="font-medium text-gray-900 sm:text-right">{{ ucfirst($transaksi->layanan->nama) }}</dd>
-                                    </div>
-                                    <div class="flex flex-col sm:flex-row sm:justify-between border-b border-gray-100 pb-2 sm:border-0 sm:pb-0">
-                                        <dt class="text-gray-500 mb-1 sm:mb-0">Waktu Pesan</dt>
-                                        <dd class="font-medium text-gray-900 sm:text-right">{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d M Y, H:i') }}</dd>
-                                    </div>
-                                    <div class="flex flex-col sm:flex-row sm:justify-between border-b border-gray-100 pb-2 sm:border-0 sm:pb-0">
-                                        <dt class="text-gray-500 mb-1 sm:mb-0">Estimasi Tiba</dt>
-                                        <dd class="font-medium text-gray-900 sm:text-right">{{ \Carbon\Carbon::parse($transaksi->waktu_pesan)->format('d M Y, H:i') }}</dd>
-                                    </div>
-                                    @if($transaksi->catatan)
-                                    <div class="flex flex-col sm:flex-row sm:justify-between border-b border-gray-100 pb-2 sm:border-0 sm:pb-0">
-                                        <dt class="text-gray-500 mb-1 sm:mb-0">Catatan</dt>
-                                        <dd class="font-medium text-gray-900 sm:text-right">{{ $transaksi->catatan }}</dd>
-                                    </div>
-                                    @endif
-                                    <div class="flex flex-col sm:flex-row sm:justify-between pt-3 border-t border-gray-200">
-                                        <dt class="text-gray-500 font-semibold mb-1 sm:mb-0">Total Biaya</dt>
-                                        <dd class="font-bold text-emerald-600 text-lg sm:text-right">Rp {{ number_format($transaksi->layanan->harga, 0, ',', '.') }}</dd>
-                                    </div>
-                                </dl>
-
-                                @if($transaksi->status == 'selesai')
-                                    <div class="mt-6 text-center">
-                                        <p class="text-sm text-green-600 font-medium mb-2"><i class="fas fa-check-circle mr-1"></i> Kendaraan Anda sudah selesai dicuci!</p>
-                                        <p class="text-xs text-gray-500">Silakan menuju kasir untuk melakukan pembayaran.</p>
-                                    </div>
-                                @elseif($transaksi->status == 'menunggu')
-                                    <div class="mt-6 text-center">
-                                        <p class="text-sm text-yellow-600 font-medium"><i class="fas fa-clock mr-1"></i> Harap datang sesuai estimasi waktu.</p>
-                                    </div>
-                                @endif
+                    @empty
+                        <div class="text-center py-16">
+                            <div class="mx-auto mb-4 w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                                <i class="fas fa-clipboard-list text-2xl"></i>
                             </div>
-                        @else
-                            <div class="text-center py-8">
-                                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 text-red-500 mb-4">
-                                    <i class="fas fa-search-minus text-2xl"></i>
-                                </div>
-                                <h3 class="text-lg font-medium text-gray-900 mb-1">Antrean Tidak Ditemukan</h3>
-                                <p class="text-sm text-gray-500">Pastikan Nomor Antrean atau Plat Nomor yang Anda masukkan benar.</p>
-                            </div>
-                        @endif
-                    </div>
-                @endif
-            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Tidak ada antrian aktif</h3>
+                            <p class="text-gray-500 mb-6">Semua transaksi sudah selesai atau belum ada booking yang masuk.</p>
+                            <a href="{{ route('booking.create') }}" class="inline-flex items-center justify-center rounded-full bg-purple-600 px-5 py-2.5 text-sm font-semibold text-white shadow hover:bg-purple-700 transition">
+                                Booking Sekarang
+                            </a>
+                        </div>
+                    @endforelse
+                </div>
+            </section>
         </div>
     </main>
-
-
 @endsection

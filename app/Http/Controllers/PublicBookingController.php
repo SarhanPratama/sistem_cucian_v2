@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Layanan;
 use App\Models\Kategori;
 use App\Models\Pelanggan;
 use App\Models\Transaksi;
@@ -31,19 +30,19 @@ class PublicBookingController extends Controller
 
         $profil = ProfilToko::first();
         $estimasi = Carbon::parse($request->estimasi_tiba);
-        
+
         $isWeekend = $estimasi->isWeekend();
         $jamBukaStr = $isWeekend ? $profil->jam_buka_akhir_pekan : $profil->jam_buka_pekan;
-        
+
         // Pengecekan sederhana berasumsi format "08.00 - 20.00" atau "08:00 - 20:00"
         if ($jamBukaStr) {
             $parts = explode('-', $jamBukaStr);
             if (count($parts) == 2) {
                 $buka = trim(str_replace('.', ':', $parts[0]));
                 $tutup = trim(str_replace('.', ':', $parts[1]));
-                
+
                 $waktuTiba = $estimasi->format('H:i');
-                
+
                 if ($waktuTiba < $buka || $waktuTiba > $tutup) {
                     return back()->withInput()->with('error', "Maaf, jam booking ({$waktuTiba}) berada di luar jam operasional kami pada hari tersebut. Jam operasional: {$jamBukaStr}.");
                 }
@@ -81,19 +80,14 @@ class PublicBookingController extends Controller
         return view('booking.success', compact('transaksi'));
     }
 
-    public function checkStatus(Request $request)
+    public function checkStatus()
     {
-        $transaksi = null;
-        $search = $request->query('search');
+        $antrianAktif = Transaksi::with('layanan.kategori', 'pelanggan')
+            ->whereIn('status', ['menunggu', 'diproses'])
+            ->orderByRaw("CASE WHEN status = 'diproses' THEN 0 ELSE 1 END")
+            ->orderBy('created_at', 'asc')
+            ->get();
 
-        if ($search) {
-            $transaksi = Transaksi::with('layanan', 'pelanggan')
-                ->where('nomor_antrian', $search)
-                ->orWhere('plat_nomor', $search)
-                ->orderBy('created_at', 'desc')
-                ->first();
-        }
-
-        return view('booking.status', compact('transaksi', 'search'));
+        return view('booking.status', compact('antrianAktif'));
     }
 }

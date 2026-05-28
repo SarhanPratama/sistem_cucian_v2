@@ -186,7 +186,7 @@
                     </a>
                     <a href="{{ route('booking.status') }}"
                         class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-purple-600 hover:text-purple-700">
-                        Cek Status
+                        Cek Antrian
                     </a>
                 </div>
 
