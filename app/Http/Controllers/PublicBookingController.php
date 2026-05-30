@@ -38,8 +38,8 @@ class PublicBookingController extends Controller
         if ($jamBukaStr) {
             $parts = explode('-', $jamBukaStr);
             if (count($parts) == 2) {
-                $buka = trim(str_replace('.', ':', $parts[0]));
-                $tutup = trim(str_replace('.', ':', $parts[1]));
+                $buka = date('H:i', strtotime(trim($parts[0])));
+                $tutup = date('H:i', strtotime(trim($parts[1])));
 
                 $waktuTiba = $estimasi->format('H:i');
 

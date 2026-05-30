@@ -1,7 +1,7 @@
 @extends('layouts.frontend')
 
 @section('content')
-        <!-- Hero Section -->
+    <!-- Hero Section -->
     <section id="home" class="relative w-full h-[85vh] min-h-[500px] bg-gray-900 overflow-hidden">
         <!-- Include Swiper CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -11,54 +11,64 @@
             <div class="swiper-wrapper">
 
                 @forelse($banners as $banner)
-                <div class="swiper-slide relative bg-gray-900">
-                    <img src="{{ Storage::url($banner->gambar) }}" class="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay" alt="{{ $banner->judul }}">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="text-center px-4 max-w-4xl z-10" data-swiper-parallax="-300">
-                            @if($banner->judul)
-                                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-xl border-white tracking-wide">
-                                    {{ $banner->judul }}
-                                </h1>
-                            @endif
-                            @if($banner->deskripsi)
-                                <p class="text-xl md:text-2xl mb-10 text-gray-200 drop-shadow-lg font-light">
-                                    {{ $banner->deskripsi }}
-                                </p>
-                            @endif
-                            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                                <a href="{{ route("booking.create") }}" class="bg-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-purple-700 transition shadow-2xl hover:scale-105 transform">
-                                    <i class="fas fa-calendar-check mr-2"></i> Booking Sekarang
-                                </a>
-                                <a href="{{ route("booking.status") }}" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-purple-700 transition shadow-2xl hover:scale-105 transform">
-                                    <i class="fas fa-clock mr-2"></i> Cek Antrian
-                                </a>
+                    <div class="swiper-slide relative bg-gray-900">
+                        <img src="{{ Storage::url($banner->gambar) }}"
+                            class="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay"
+                            alt="{{ $banner->judul }}">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center px-4 max-w-4xl z-10" data-swiper-parallax="-300">
+                                @if ($banner->judul)
+                                    <h1
+                                        class="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-xl border-white tracking-wide">
+                                        {{ $banner->judul }}
+                                    </h1>
+                                @endif
+                                @if ($banner->deskripsi)
+                                    <p class="text-xl md:text-2xl mb-10 text-gray-200 drop-shadow-lg font-light">
+                                        {{ $banner->deskripsi }}
+                                    </p>
+                                @endif
+                                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                                    <a href="{{ route('booking.create') }}"
+                                        class="bg-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-purple-700 transition shadow-2xl hover:scale-105 transform">
+                                        <i class="fas fa-calendar-check mr-2"></i> Booking Sekarang
+                                    </a>
+                                    <a href="{{ route('booking.status') }}"
+                                        class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-purple-700 transition shadow-2xl hover:scale-105 transform">
+                                        <i class="fas fa-clock mr-2"></i> Cek Antrian
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @empty
-                <!-- Fallback Slide 1 -->
-                <div class="swiper-slide relative bg-gray-900">
-                    <img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=1600&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay" alt="Car Wash 1">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="text-center px-4 max-w-4xl z-10" data-swiper-parallax="-300">
-                            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-xl border-white tracking-wide">
-                                {{ $profil->hero_title ?? "Kilau Sempurna untuk Kendaraan Anda" }}
-                            </h1>
-                            <p class="text-xl md:text-2xl mb-10 text-gray-200 drop-shadow-lg font-light">
-                                {{ $profil->hero_subtitle ?? "Cuci Cepat, Bersih Detail, Harga Bersahabat" }}
-                            </p>
-                            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                                <a href="{{ route("booking.create") }}" class="bg-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-purple-700 transition shadow-2xl hover:scale-105 transform">
-                                    <i class="fas fa-calendar-check mr-2"></i> Booking Sekarang
-                                </a>
-                                <a href="{{ route("booking.status") }}" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-purple-700 transition shadow-2xl hover:scale-105 transform">
-                                    <i class="fas fa-clock mr-2"></i> Cek Antrian
-                                </a>
+                    <!-- Fallback Slide 1 -->
+                    <div class="swiper-slide relative bg-gray-900">
+                        <img src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?q=80&w=1600&auto=format&fit=crop"
+                            class="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay"
+                            alt="Car Wash 1">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center px-4 max-w-4xl z-10" data-swiper-parallax="-300">
+                                <h1
+                                    class="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-xl border-white tracking-wide">
+                                    {{ $profil->hero_title ?? 'Kilau Sempurna untuk Kendaraan Anda' }}
+                                </h1>
+                                <p class="text-xl md:text-2xl mb-10 text-gray-200 drop-shadow-lg font-light">
+                                    {{ $profil->hero_subtitle ?? 'Cuci Cepat, Bersih Detail, Harga Bersahabat' }}
+                                </p>
+                                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                                    <a href="{{ route('booking.create') }}"
+                                        class="bg-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-purple-700 transition shadow-2xl hover:scale-105 transform">
+                                        <i class="fas fa-calendar-check mr-2"></i> Booking Sekarang
+                                    </a>
+                                    <a href="{{ route('booking.status') }}"
+                                        class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-purple-700 transition shadow-2xl hover:scale-105 transform">
+                                        <i class="fas fa-clock mr-2"></i> Cek Antrian
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endforelse
 
             </div>
@@ -72,7 +82,8 @@
         </div>
 
         <!-- Floating Badge -->
-        <div class="absolute bottom-8 right-8 bg-yellow-400 bg-opacity-90 backdrop-blur-md rounded-2xl p-4 sm:p-6 shadow-2xl z-20 animate-bounce hidden md:block border-2 border-yellow-300">
+        <div
+            class="absolute bottom-8 right-8 bg-yellow-400 bg-opacity-90 backdrop-blur-md rounded-2xl p-4 sm:p-6 shadow-2xl z-20 animate-bounce hidden md:block border-2 border-yellow-300">
             <div class="flex items-center gap-4">
                 <div class="bg-white p-3 rounded-full">
                     <i class="fas fa-users text-yellow-500 text-2xl"></i>
@@ -91,7 +102,7 @@
         <!-- Swiper JS -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 const swiper = new Swiper('.myHeroSwiper', {
                     loop: true,
                     effect: 'fade',
@@ -145,7 +156,8 @@
                             </h2>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto justify-items-center">
+                        <div
+                            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto justify-items-center">
                             @foreach ($layanan as $index => $l)
                                 <div class="w-full max-w-md bg-white rounded-2xl p-8 shadow-lg card-hover scale-in border-t-4 border-purple-500 flex flex-col"
                                     style="transition-delay: {{ $index * 0.1 }}s">
@@ -283,7 +295,8 @@
                             </h2>
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto justify-items-center">
+                        <div
+                            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto justify-items-center">
                             @foreach ($karyawan as $index => $k)
                                 <div class="w-full max-w-xs bg-white rounded-2xl overflow-hidden shadow-lg card-hover scale-in"
                                     style="transition-delay: {{ $index * 0.1 }}s">
@@ -340,26 +353,69 @@
                             <!-- Info -->
                             <div class="fade-in-right flex flex-col justify-between">
                                 <!-- Status -->
-                                <div id="store-status-card"
-                                    class="bg-green-600 rounded-3xl p-8 mb-6 text-white shadow-lg card-hover">
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <div class="flex items-center mb-2">
-                                                <div class="w-4 h-4 bg-white rounded-full mr-3 status-open shadow-sm">
+                                @php
+                                    $isOpen = false;
+                                    if (isset($profil)) {
+                                        $now = \Carbon\Carbon::now('Asia/Jakarta');
+                                        $isWeekend = $now->isWeekend();
+                                        $jamOp = $isWeekend ? $profil->jam_buka_akhir_pekan : $profil->jam_buka_pekan;
+
+                                        if ($jamOp && str_contains($jamOp, '-')) {
+                                            [$buka, $tutup] = explode('-', $jamOp);
+                                            $buka = date('H:i', strtotime(trim($buka)));
+                                            $tutup = date('H:i', strtotime(trim($tutup)));
+
+                                            $currentTime = $now->format('H:i');
+                                            if ($currentTime >= $buka && $currentTime <= $tutup) {
+                                                $isOpen = true;
+                                            }
+                                        }
+                                    }
+                                @endphp
+
+                                @if ($isOpen)
+                                    <div id="store-status-card"
+                                        class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-3xl p-8 mb-6 text-white shadow-lg card-hover">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <div class="flex items-center mb-2">
+                                                    <div class="w-4 h-4 bg-white rounded-full mr-3 status-open shadow-sm">
+                                                    </div>
+                                                    <span id="store-status-text" class="text-2xl font-bold tracking-wide">
+                                                        BUKA SEKARANG
+                                                    </span>
                                                 </div>
-                                                <span id="store-status-text" class="text-2xl font-bold tracking-wide">
-                                                    BUKA SEKARANG
-                                                </span>
+                                                <p id="store-status-desc" class="text-green-50 font-medium">
+                                                    Kami siap melayani Anda. Silakan datang!
+                                                </p>
                                             </div>
-                                            <p id="store-status-desc" class="text-green-50 font-medium">
-                                                Kami siap melayani Anda. Silakan datang!
-                                            </p>
-                                        </div>
-                                        <div class="bg-white/20 p-4 rounded-full backdrop-blur-sm">
-                                            <i class="fas fa-store text-4xl text-white"></i>
+                                            <div class="bg-white/20 p-4 rounded-full backdrop-blur-sm">
+                                                <i class="fas fa-store text-4xl text-white"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div id="store-status-card"
+                                        class="bg-gradient-to-r from-red-500 to-rose-600 rounded-3xl p-8 mb-6 text-white shadow-lg card-hover">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <div class="flex items-center mb-2">
+                                                    <div class="w-4 h-4 bg-white rounded-full mr-3 shadow-sm">
+                                                    </div>
+                                                    <span id="store-status-text" class="text-2xl font-bold tracking-wide">
+                                                        TUTUP
+                                                    </span>
+                                                </div>
+                                                <p id="store-status-desc" class="text-red-50 font-medium">
+                                                    Kami akan buka kembali sesuai jadwal
+                                                </p>
+                                            </div>
+                                            <div class="bg-white/20 p-4 rounded-full backdrop-blur-sm">
+                                                <i class="fas fa-door-closed text-4xl text-white"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
 
                                 <div class="grid sm:grid-cols-2 gap-6 mb-6">
                                     <!-- Jam Operasional -->

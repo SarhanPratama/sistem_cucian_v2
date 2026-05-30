@@ -60,8 +60,11 @@ Route::middleware('auth')->group(function () {
 
     // Laporan Routes
     Route::get('/laporan/keuangan', [LaporanController::class, 'keuangan'])->name('laporan.keuangan');
+    Route::get('/laporan/keuangan/pdf', [LaporanController::class, 'keuanganPdf'])->name('laporan.keuangan.pdf');
     Route::get('/laporan/kinerja', [LaporanController::class, 'kinerja'])->name('laporan.kinerja');
+    Route::get('/laporan/kinerja/pdf', [LaporanController::class, 'kinerjaPdf'])->name('laporan.kinerja.pdf');
     Route::get('/laporan/pelanggan', [LaporanController::class, 'pelanggan'])->name('laporan.pelanggan');
+    Route::get('/laporan/pelanggan/pdf', [LaporanController::class, 'pelangganPdf'])->name('laporan.pelanggan.pdf');
 
     // CMS Web Profile Routes
     Route::get('/profil-toko', [ProfilTokoController::class, 'edit'])->name('profil_toko.edit');

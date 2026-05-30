@@ -337,23 +337,34 @@
     </footer>
 
     <script>
+        // Helper to convert time string (HH.MM or HH:MM) to minutes from midnight
+        function timeToMinutes(timeStr) {
+            if (!timeStr) return 0;
+            const parts = timeStr.replace('.', ':').split(':');
+            const hours = parseInt(parts[0], 10) || 0;
+            const minutes = parseInt(parts[1], 10) || 0;
+            return hours * 60 + minutes;
+        }
+
         // Status Toko Real-time
         function updateStoreStatus() {
             const now = new Date();
             const day = now.getDay();
             const hour = now.getHours();
             const minute = now.getMinutes();
-            const currentTime = hour + minute / 60;
+            const currentTime = hour * 60 + minute;
+
+            const jamPekan = "{{ $profilTokoGlobal->jam_buka_pekan ?? '08.00 - 20.00' }}";
+            const jamAkhirPekan = "{{ $profilTokoGlobal->jam_buka_akhir_pekan ?? '07.00 - 21.00' }}";
+            const jamOp = (day === 0 || day === 6) ? jamAkhirPekan : jamPekan;
 
             let isOpen = false;
 
-            // Senin - Jumat (1-5): 08.00 - 20.00
-            if (day >= 1 && day <= 5) {
-                isOpen = currentTime >= 8 && currentTime < 20;
-            }
-            // Sabtu - Minggu (0, 6): 07.00 - 21.00
-            else if (day === 0 || day === 6) {
-                isOpen = currentTime >= 7 && currentTime < 21;
+            if (jamOp && jamOp.includes('-')) {
+                const parts = jamOp.split('-');
+                const buka = timeToMinutes(parts[0].trim());
+                const tutup = timeToMinutes(parts[1].trim());
+                isOpen = currentTime >= buka && currentTime <= tutup;
             }
 
             const statusCard = document.getElementById('store-status-card');
