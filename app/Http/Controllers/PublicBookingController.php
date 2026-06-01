@@ -14,7 +14,9 @@ class PublicBookingController extends Controller
     public function create()
     {
         $kategoris = Kategori::all();
-        return view('booking.create', compact('kategoris'));
+            $profil = ProfilToko::first();
+
+        return view('booking.create', compact('kategoris', 'profil'));
     }
 
     public function store(Request $request)
@@ -87,7 +89,8 @@ class PublicBookingController extends Controller
             ->orderByRaw("CASE WHEN status = 'diproses' THEN 0 ELSE 1 END")
             ->orderBy('created_at', 'asc')
             ->get();
+        $profil = ProfilToko::first();
 
-        return view('booking.status', compact('antrianAktif'));
+        return view('booking.status', compact('antrianAktif', 'profil'));
     }
 }
